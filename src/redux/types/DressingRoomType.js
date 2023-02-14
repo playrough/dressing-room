@@ -1,0 +1,1 @@
+export const CHOOSE_CLOTHES = 'CHOOSE_CLOTHES';
