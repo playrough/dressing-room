@@ -10,46 +10,29 @@ import Hairstyle from './Clothes/Hairstyle';
 import Background from './Clothes/Background';
 
 export default function ModelView() {
-	const listChosen = useSelector(state => state.DressingRoomReducer.listChosen);
+    const listChosen = useSelector(state => state.DressingRoomReducer.listChosen);
 
-	const renderClothes = () => {
-		return listChosen.map((item, index) => {
-			switch (item.type) {
+    const renderClothes = () => {
+        const clothes = {
+            'topclothes': TopClothes,
+            'botclothes': BotClothes,
+            'shoes': Shoes,
+            'handbags': Handbags,
+            'necklaces': Necklaces,
+            'hairstyle': Hairstyle,
+            'default': Background
+        };
 
-				case 'topclothes': {
-					return <TopClothes item={item} key={index} />;
-				}
+        return listChosen.map((item, index) => {
+            const Component = clothes[item.type] || clothes['default'];
+            return <Component item={item} key={index} />;
+        });
+    };
 
-				case 'botclothes': {
-					return <BotClothes item={item} key={index} />;
-				}
 
-				case 'shoes': {
-					return <Shoes item={item} key={index} />;
-				}
 
-				case 'handbags': {
-					return <Handbags item={item} key={index} />;
-				}
-
-				case 'necklaces': {
-					return <Necklaces item={item} key={index} />;
-				}
-
-				case 'hairstyle': {
-					return <Hairstyle item={item} key={index} />;
-				}
-
-				default: {
-					return <Background item={item} key={index} />;
-				}
-
-			}
-		});
-	};
-
-	return (
-		<div className='contain'>
+    return (
+        <div className='contain'>
 			<div className='model'></div>
 			<div className='body'></div>
 			<div className='feet-left'></div>
@@ -60,5 +43,5 @@ export default function ModelView() {
 				{renderClothes()}
 			</div>
 		</div>
-	);
+    );
 }
